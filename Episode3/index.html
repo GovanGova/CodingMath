@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>hello_tutorial</title>
+
+
+		</head>
+<body onload="setup()">
+	<canvas id="canvas"></canvas>
+  <script type="text/javascript">
+  var canvas, context,width, height;
+  var centerX, centerY, angle;
+	function setup(){
+		 canvas = document.getElementById("canvas"),
+		context= canvas.getContext("2d"),
+		width = canvas.width = window.innerWidth,
+		height = canvas.height = window.innerHeight;
+		
+		centerX=width *0.5;
+		centerY = height *0.5;
+			render();
+
+			angle=0;
+		}
+		
+	function render(){
+		
+		var y = centerY + Math.sin(-angle)*(centerY*0.4);
+		var x = centerX + Math.cos(-angle)*(centerX*0.4);
+		var radius = 50+ Math.sin(angle)*10;
+		
+		var alpha = Math.abs(Math.sin(angle));
+		
+		context.clearRect(0,0,width, height)
+		context.fillStyle= "rgba(0,0,0,"+ alpha+")";
+		context.beginPath()
+		context.arc(x, y, radius, 0, 2*3.14);
+		context.fill()
+		
+		angle+=.01;
+		requestAnimationFrame(render);
+	}
+		
+		
+  </script>
+  
+</body>
+</html>
