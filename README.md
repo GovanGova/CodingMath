@@ -1,2 +1,2 @@
 # CodingMath
-Working examples for all gpu gems tutorial using webgl
+Samples for each episode in CodingMath Youtube Tutorial by Mr. Keith Peters
