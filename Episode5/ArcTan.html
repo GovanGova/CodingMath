@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>hello_tutorial</title>
+
+
+</head>
+<body onload="setup()">
+<canvas id="canvas"></canvas>
+<script type="text/javascript">
+
+var canvas, context,width, height;
+var centerX, centerY, angle,rotateToTarget=0;
+
+function setup(){
+	canvas = document.getElementById("canvas"),
+	context= canvas.getContext("2d"),
+	width = canvas.width = window.innerWidth,
+	height = canvas.height = window.innerHeight;
+	
+	centerX = width *0.5;
+	centerY = height *0.5;
+		
+	var xRadius = 400, x=0;
+	var yRadius = 200, y=0;
+	render();
+
+	angle=0, rotateToTarget=0;
+	var radius = 250;
+	
+	function render(){
+		
+		y = 0 + Math.sin(-angle)*(radius);
+		x = 0 + Math.cos(-angle)*(radius);
+		//+ Math.sin(angle)*10;
+		
+		//var alpha = Math.abs(Math.sin(angle));
+		context.clearRect(0,0,width, height)	
+		
+		//context.fillStyle= "rgba(0,0,0,"+ alpha+")";
+		
+		
+		context.save();
+		context.translate(centerX,centerY);
+		context.translate(x,y);
+		if(rotateToTarget!=0)
+			context.rotate(-rotateToTarget);
+		else
+			context.rotate(-angle);
+		context.beginPath(); 
+		context.lineWidth = 3;
+		context.moveTo(-20,0);
+		context.lineTo(0,0);
+		context.moveTo(-10,10);
+		context.lineTo(0,0);
+		context.moveTo(-10,-10);
+		context.lineTo(0,0);
+		context.stroke();
+		context.restore();
+		
+		context.save();
+		context.beginPath();
+		context.translate(centerX,centerY);
+		context.arc(0,0,radius,0, 2*Math.PI);
+		context.stroke();
+		
+		context.restore()
+		
+		
+		
+		
+		rotateToTarget=0;
+		angle+=.01;
+		requestAnimationFrame(render);
+	}
+	
+	document.addEventListener("mousemove", function(event){
+		
+		// find length of opposite and adjacent side
+		var dx= -x - centerX +event.clientX;// + x;
+		var dy= centerY + y - event.clientY;// -y;
+		rotateToTarget = Math.atan2(dy, dx);
+		
+	});
+}
+
+
+</script>
+
+</body>
+</html>
